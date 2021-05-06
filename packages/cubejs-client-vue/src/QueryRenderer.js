@@ -1,5 +1,6 @@
 import { toPairs, fromPairs } from 'ramda';
 import { isQueryPresent, areQueriesEqual } from '@cubejs-client/core';
+import { h } from 'vue';
 
 export default {
   props: {
@@ -46,11 +47,11 @@ export default {
       await this.loadQueries(queries);
     }
   },
-  render(createElement) {
+  render() {
     const { $scopedSlots, resultSet, error, loading, sqlQuery } = this;
-    const empty = createElement('div', {});
+    const empty = h('div', {});
     let slot = this.$slots.empty ? this.$slots.empty : empty;
-    let controls = createElement('div', {});
+    let controls = h('div', {});
     const onlyDefault = !('empty' in this.$slots) && !('error' in this.$scopedSlots);
 
     if ($scopedSlots.builder && this.builderProps.measures) {
@@ -79,7 +80,7 @@ export default {
       slot = $scopedSlots.error ? $scopedSlots.error({ error, sqlQuery }) : slot;
     }
 
-    return createElement('div', {}, [controls, slot]);
+    return h('div', {}, [controls, slot]);
   },
   methods: {
     async load() {

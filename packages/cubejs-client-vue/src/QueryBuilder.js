@@ -9,6 +9,7 @@ import {
   movePivotItem,
   areQueriesEqual
 } from '@cubejs-client/core';
+import { h } from 'vue';
 import { clone, equals } from 'ramda';
 
 import QueryRenderer from './QueryRenderer';
@@ -83,7 +84,7 @@ export default {
     };
   },
 
-  render(createElement) {
+  render() {
     const {
       chartType,
       cubejsApi,
@@ -201,10 +202,10 @@ export default {
 
     // Pass parent slots to child QueryRenderer component
     const children = Object.keys(this.$slots).map((slot) =>
-      createElement('template', { slot }, this.$slots[slot])
+      h('template', { slot }, this.$slots[slot])
     );
 
-    return createElement(
+    return h(
       QueryRenderer,
       {
         props: {
